@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+// Communication between the client and pfsd
+package client;
+
+service ClientService {
+  // Asks to initialize a new cluster
+  rpc Init (InitRequest) returns (InitResponse);
+  // Join an existing cluster.
+  rpc Join (JoinRequest) returns (EmptyMessage);
+  // Status of the cluster.
+  rpc Status (EmptyMessage) returns (StatusResponse);
+}
+
+message EmptyMessage {}
+
+message InitRequest {
+  // Path at which the filesystem should be mounted.
+  string mount_path = 1;
+}
+
+message InitResponse {
+  // Address at which the node is available.
+  string address = 1;
+  // Token used to join the cluster
+  string token = 2;
+}
+
+message JoinRequest {
+  // Token used to join
+  string token = 1;
+  // Address of one of the peers to join
+  string address = 2;
+}
+
+message StatusResponse {
+  // Nodes of the cluster
+  repeated string nodes = 1;
+}
