@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package paranoid;
+
+import "google/protobuf/any.proto";
+
+service ParanoidNetwork {
+  // Pings a peer to check is it still available
+  rpc Ping (EmptyMessage) returns (EmptyMessage);
+
+  // Join the cluster
+  rpc Join (JoinRequest) returns (EmptyMessage);
+
+  // Sends an arbitrary message
+  rpc Send (Message) returns (Message);
+}
+
+message EmptyMessage {}
+
+// Request made to join the cluster. The token must be specified
+// in order to join.
+message JoinRequest {
+  string token = 1;
+}
+
+// Message to send with arbitrary data.
+message Message {
+  google.protobuf.Any data = 1;
+}
