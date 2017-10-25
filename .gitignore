@@ -1,0 +1,15 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore Filefiles
+!Makefile
+!LICENSE
+
+# Ignore common accidental extensions
+*.swp
+
+# Ignore generated protos
+*.pb.go
